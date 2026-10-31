@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- TSL / Sinal da Sú: pixel da Meta + CAPI, GA4, Clarity e marcos do vídeo vturb (25/50/75/100%).
+       É a única tag de rastreamento da página; não somar GTM com o mesmo pixel (dobra PageView). -->
+  <script src="https://sinal.sulimiro.com/s.js"></script>
+  <!-- vturb: marca o início do carregamento (do script de otimização que o vturb entrega) -->
+  <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+  <link rel="dns-prefetch" href="https://cdn.converteai.net">
+  <link rel="dns-prefetch" href="https://scripts.converteai.net">
+  <link rel="dns-prefetch" href="https://images.converteai.net">
+  <link rel="dns-prefetch" href="https://license.vturb.com">
+  <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+  <script src="js/config.js"></script>
+  <script>
+    // pré-carrega o player e o vídeo da versão desta URL (os links do vturb mudam por versão)
+    (function () {
+      var c = window.SFT_CONFIG, v = c.versoes[window.SFT_VERSAO].video;
+      if (v.tipo !== "vturb") return;
+      function pre(href, as) { var l = document.createElement("link"); l.rel = "preload"; l.href = href; l.as = as; document.head.appendChild(l); }
+      pre("https://scripts.converteai.net/" + c.vturbConta + "/players/" + v.id + "/v4/player.js", "script");
+      if (v.hls) pre("https://cdn.converteai.net/" + c.vturbConta + "/" + v.hls + "/main.m3u8", "fetch");
+    })();
+  </script>
+  <title>Súper Festival de Tortas · Sú Limiro</title>
+  <meta name="description" content="Mira el video: cómo vendí todas mis tortas en un parque donde nadie me conocía, y por qué el lunes empezaron a llegar los pedidos.">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="Súper Festival de Tortas · Sú Limiro">
+  <meta property="og:description" content="Un sábado vendí todas mis tortas en un parque donde nadie me conocía. Y lo mejor pasó el lunes.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/1d7cf81e.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Dancing+Script:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <div class="aviso-config">Falta configurar la oferta de Hotmart de esta versión en <code>js/config.js</code>.</div>
+
+  <!-- SVG do coração (reaproveitado em toda a página) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="coracao" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7.5-4.6-10-9.3C.4 8.4 2 5 5.2 5c2 0 3.3 1.1 4 2.2.2.3.7.3.9 0C10.8 6 12.1 5 14 5c3.2 0 4.8 3.4 3.2 6.7C19.5 16.4 12 21 12 21z"/></symbol>
+  </svg>
+
+  <!-- ===================== ANTES DO PITCH: só isto aparece ===================== -->
+  <header class="topo papel">
+    <span class="topo__pre">Para las que hacen tortas y quieren venderlas de verdad</span>
+    <h1 class="topo__titulo">Un sábado vendí todas mis tortas en un parque donde nadie me conocía. <em>Y lo mejor pasó el lunes.</em></h1>
+    <p class="topo__sub">Mira este video hasta el final: te muestro lo que hice ese fin de semana y por qué funciona incluso si hoy nadie te conoce.</p>
+  </header>
+
+  <section class="video" aria-label="Video">
+    <div class="video__moldura" id="player"></div>
+    <p class="video__nota">🔊 Mira con el sonido activado · Sú Limiro, profesora de repostería con más de 7.500 alumnas en más de 50 países</p>
+  </section>
+
+  <!-- gatilho usado só pelo player vturb (ele mostra este elemento no segundo do pitch) -->
+  <div class="vturb-gatilho" aria-hidden="true"></div>
+
+  <!-- ===================== NO PITCH: botão embaixo do vídeo ===================== -->
+  <!-- smartplayer-scroll-event: alvo do "Ir para seu elemento" do vturb (rolagem em 15:07, quando ela diz "aquí abajo") -->
+  <div class="cta-video depois-do-pitch smartplayer-scroll-event">
+    <a class="botao" data-checkout="botao_video" href="#oferta" rel="noopener">
+      <svg class="coracao"><use href="#coracao"/></svg> Sí, quiero entrar al festival
+    </a>
+    <p class="micro">Pago único de <strong>US$ <span data-preco>47</span></strong> · Acceso inmediato por 1 año · Garantía de 7 días</p>
+    <div class="pagos" aria-label="Formas de pago">
+      <span>Tarjeta</span><span>Nequi</span><span>Yape</span><span>PSE</span><span>Baloto</span><span>PagoEfectivo</span><span>OXXO</span><span>Mercado Pago</span>
+    </div>
+    <p class="micro">No necesitas tarjeta de crédito internacional</p>
+  </div>
+
+  <!-- ===================== PÁGINA LIBERADA NO PITCH (na v4, desde o início) =====================
+       Esqueleto da página da Luana (carta de vendas embaixo da VSL): resultado do expert logo abaixo do vídeo,
+       cases com número, manifesto, virada, método, comparativo, "funciona aunque", módulos com resultado,
+       cardápio, bônus, tabela de valor → preço, payback, garantia, quem é, FAQ e dois caminhos. -->
+  <main class="depois-do-pitch">
+
+    <!-- 1. O RESULTADO DA SÚ NO PARQUE (prova do próprio expert logo abaixo do vídeo) -->
+    <section id="parque" class="faixa faixa--blush papel">
+      <div class="miolo">
+        <div class="centro miolo--estreito">
+          <p class="sobre">Lo que viste en el video</p>
+          <h2 class="titulo">Así fue <em>mi festival</em> en el parque</h2>
+          <p class="lead">Un sábado, en una ciudad donde nadie me conocía. Sin equipo, solo con mis tortas. Vendí todo ese fin de semana, y el lunes empezaron a llegar los pedidos.</p>
+        </div>
+        <div class="marcadores">
+          <div><b>+US$ 300</b><span>en un solo fin de semana</span></div>
+          <div><b>4</b><span>sabores</span></div>
+          <div><b>0</b><span>tortas sobrando</span></div>
+          <div><b>0</b><span>seguidores en esa ciudad</span></div>
+        </div>
+        <div class="parque">
+          <figure><img src="img/parque-1.webp" alt="Puesto de pallets del Festival de Sú en un parque, con tortas y un cartel" width="900" height="1600" loading="lazy" style="object-position:50% 28%"></figure>
+          <figure><img src="img/parque-2.webp" alt="Sú detrás de su puesto con las tortas del festival" width="700" height="1244" loading="lazy"></figure>
+          <figure><img src="img/parque-3.webp" alt="Porción de torta en su caja, con la salsa puesta en el momento" width="700" height="1244" loading="lazy"></figure>
+        </div>
+        <div class="lunes">
+          <div class="lunes__txt">
+            <p class="lunes__dia">Y el lunes…</p>
+            <p>Personas que me conocieron ese fin de semana me escribieron para pedir más: encargos para la semana. Un festival no es solo un fin de semana para vender, es la forma más rápida de conseguir clientes nuevos.</p>
+          </div>
+          <div class="lunes__prints">
+            <figure><img src="img/pos-1.webp" alt="Mensaje de una clienta al día siguiente del festival" width="600" height="454" loading="lazy"></figure>
+            <figure><img src="img/pos-2.webp" alt="Otro mensaje de una clienta que probó la torta en el festival" width="600" height="393" loading="lazy"></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. CASES DAS ALUNAS (número em destaque + filtro por país, como a prova por nicho da Luana) -->
+    <section id="alumnas" class="faixa faixa--creme papel">
+      <div class="miolo">
+        <div class="centro miolo--estreito">
+          <p class="sobre">Festivales reales de alumnas</p>
+          <h2 class="titulo">Ellas hicieron su <em>primer festival</em></h2>
+          <p class="lead">Las alumnas del Desafío Juntas al Festival, en julio de 2026, nos enviaron sus fotos, sus números y sus comprobantes.</p>
+        </div>
+
+        <div class="abas" role="group" aria-label="Filtrar por país">
+          <button type="button" class="aba ativa" data-filtro="todas" aria-pressed="true">Todas <span>8</span></button>
+          <button type="button" class="aba" data-filtro="co" aria-pressed="false">Colombia <span>4</span></button>
+          <button type="button" class="aba" data-filtro="ve" aria-pressed="false">Venezuela <span>2</span></button>
+          <button type="button" class="aba" data-filtro="pr" aria-pressed="false">Puerto Rico <span>1</span></button>
+          <button type="button" class="aba" data-filtro="sv" aria-pressed="false">El Salvador <span>1</span></button>
+        </div>
+
+        <div class="carrossel" data-carrossel>
+          <div class="carrossel__trilho" data-casos>
+            <article class="card-caso card-caso--destaque" data-pais="co">
+              <img src="img/alunas/carolina.webp" alt="Carpa con el cartel Festival de Tortas de Carolina, en Colombia" width="900" height="1200" loading="lazy" style="object-position:50% 6%">
+              <div class="card-caso__corpo">
+                <span class="selo-caso">Al aire libre, como Sú en el parque</span>
+                <p class="card-caso__num">54<small> de 54</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Carolina <span>· Colombia</span></p>
+                <p class="card-caso__dados">US$ 190 facturados · US$ 169 de ganancia</p>
+                <p class="card-caso__frase">Invirtió US$ 21 y vendió todo lo que preparó.</p>
+              </div>
+            </article>
+            <article class="card-caso" data-pais="pr">
+              <img src="img/alunas/glorimar.webp" alt="Carpa del festival de Glorimar en Puerto Rico" width="900" height="816" loading="lazy">
+              <div class="card-caso__corpo">
+                <p class="card-caso__num">50<small> de 65</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Glorimar <span>· Puerto Rico</span></p>
+                <p class="card-caso__dados">US$ 350 facturados · US$ 160 de ganancia</p>
+                <p class="card-caso__frase">“Me di cuenta de que podía hacerlo, que no era tan temible como imaginaba.”</p>
+              </div>
+            </article>
+            <article class="card-caso" data-pais="ve">
+              <img src="img/alunas/suhaly.webp" alt="Suhaly con su mesa de tortas del festival" width="900" height="675" loading="lazy">
+              <div class="card-caso__corpo">
+                <p class="card-caso__num">46<small> de 60</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Suhaly <span>· Venezuela</span></p>
+                <p class="card-caso__dados">US$ 280 facturados · US$ 140 de ganancia</p>
+                <p class="card-caso__frase">“Mi mayor testimonio fue lograr vender 4 tortas en un fin de semana.”</p>
+              </div>
+            </article>
+            <article class="card-caso" data-pais="sv">
+              <img src="img/alunas/nancy.webp" alt="Nancy junto a la mesa de su festival de tortas" width="900" height="677" loading="lazy">
+              <div class="card-caso__corpo">
+                <p class="card-caso__num">38<small> de 40</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Nancy <span>· El Salvador</span></p>
+                <p class="card-caso__dados">US$ 173 en un fin de semana · antes facturaba US$ 78 al mes</p>
+                <p class="card-caso__frase">“Es tu festival posible, no el festival perfecto.”</p>
+              </div>
+            </article>
+            <article class="card-caso" data-pais="co">
+              <img src="img/alunas/lucelly.webp" alt="Mesa del festival de Lucelly con tortas y porciones" width="900" height="675" loading="lazy">
+              <div class="card-caso__corpo">
+                <p class="card-caso__num">36<small> de 36</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Lucelly <span>· Colombia</span></p>
+                <p class="card-caso__dados">US$ 117 facturados · US$ 58 de ganancia</p>
+                <p class="card-caso__frase">“Se vendió todo. Tenía susto, pero se logró.”</p>
+              </div>
+            </article>
+            <article class="card-caso" data-pais="co">
+              <img src="img/alunas/carmenza.webp" alt="Porción empacada con la etiqueta del negocio de Carmenza" width="900" height="963" loading="lazy">
+              <div class="card-caso__corpo">
+                <p class="card-caso__num">32<small> de 32</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Carmenza <span>· Colombia</span></p>
+                <p class="card-caso__dados">US$ 111 facturados · US$ 54 de ganancia</p>
+                <p class="card-caso__frase">Vendió todas las porciones que preparó.</p>
+              </div>
+            </article>
+            <article class="card-caso card-caso--sem-foto" data-pais="ve">
+              <div class="card-caso__corpo">
+                <p class="card-caso__num">30<small> de 30</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Alis <span>· Venezuela</span></p>
+                <p class="card-caso__dados">US$ 100 facturados · US$ 80 de ganancia</p>
+                <p class="card-caso__frase">Invirtió US$ 20 y vendió todas las porciones que preparó.</p>
+              </div>
+            </article>
+            <article class="card-caso card-caso--sem-foto" data-pais="co">
+              <div class="card-caso__corpo">
+                <p class="card-caso__num">18<small> de 18</small></p>
+                <p class="card-caso__rot">porciones vendidas</p>
+                <p class="card-caso__nome">Yury <span>· Colombia</span></p>
+                <p class="card-caso__dados">US$ 48 facturados · US$ 34 de ganancia</p>
+                <p class="card-caso__frase">Su primer festival: vendió todas las porciones que preparó.</p>
+              </div>
+            </article>
+          </div>
+          <div class="carrossel__nav">
+            <button type="button" class="carrossel__seta" data-dir="-1" aria-label="Anterior">‹</button>
+            <button type="button" class="carrossel__seta" data-dir="1" aria-label="Siguiente">›</button>
+          </div>
+        </div>
+
+        <details class="tabela-toggle">
+          <summary>Ver los números de los 8 festivales</summary>
+          <div class="tabela-rolagem">
+            <table class="resultados">
+              <thead>
+                <tr><th>Alumna</th><th class="num">Porciones hechas → vendidas</th><th class="num">Facturó</th><th class="num so-desktop">Invirtió</th><th class="num">Ganancia</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Glorimar<small>Puerto Rico</small></td><td class="num">65 → 50</td><td class="num">US$ 350</td><td class="num so-desktop">US$ 190</td><td class="num">US$ 160</td></tr>
+                <tr><td>Suhaly<small>Venezuela</small></td><td class="num">60 → 46</td><td class="num">US$ 280</td><td class="num so-desktop">US$ 140</td><td class="num">US$ 140</td></tr>
+                <tr><td>Carolina<small>Colombia</small></td><td class="num">54 → 54</td><td class="num">US$ 190</td><td class="num so-desktop">US$ 21</td><td class="num">US$ 169</td></tr>
+                <tr><td>Nancy<small>El Salvador</small></td><td class="num">40 → 38</td><td class="num">US$ 173</td><td class="num so-desktop">US$ 80</td><td class="num">US$ 93</td></tr>
+                <tr><td>Lucelly<small>Colombia</small></td><td class="num">36 → 36</td><td class="num">US$ 117</td><td class="num so-desktop">US$ 60</td><td class="num">US$ 58</td></tr>
+                <tr><td>Carmenza<small>Colombia</small></td><td class="num">32 → 32</td><td class="num">US$ 111</td><td class="num so-desktop">US$ 57</td><td class="num">US$ 54</td></tr>
+                <tr><td>Alis<small>Venezuela</small></td><td class="num">30 → 30</td><td class="num">US$ 100</td><td class="num so-desktop">US$ 20</td><td class="num">US$ 80</td></tr>
+                <tr><td>Yury<small>Colombia</small></td><td class="num">18 → 18</td><td class="num">US$ 48</td><td class="num so-desktop">US$ 14</td><td class="num">US$ 34</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><td>8 festivales</td><td class="num">335 → 304</td><td class="num">US$ 1.369</td><td class="num so-desktop">US$ 581</td><td class="num">US$ 788</td></tr>
+              </tfoot>
+            </table>
+          </div>
+          <p class="aviso">Valores en pesos colombianos convertidos a dólares con la tasa de Hotmart del período (1 USD = 3.686 COP). Son los resultados de las alumnas que enviaron su formulario final; tu resultado depende de tu aplicación, tu ciudad y tus precios.</p>
+        </details>
+
+        <div class="centro" style="margin-top:34px">
+          <p class="sobre">Lo que cuentan en la comunidad</p>
+        </div>
+        <div class="carrossel carrossel--prints" data-carrossel>
+          <div class="carrossel__trilho">
+            <figure><img src="img/comunidade/c1.webp" alt="Publicación de Nancy en la comunidad sobre su festival" width="600" height="1298" loading="lazy"></figure>
+            <figure><img src="img/comunidade/c2.webp" alt="Alumna cuenta en la comunidad que vendió 34 porciones" width="600" height="1298" loading="lazy"></figure>
+            <figure><img src="img/depo/d1.webp" alt="Mensaje de alumna agradeciendo el curso" width="600" height="720" loading="lazy"></figure>
+            <figure><img src="img/comunidade/c3.webp" alt="Alumna cuenta en la comunidad que vendió sus tortas por WhatsApp" width="600" height="1298" loading="lazy"></figure>
+            <figure><img src="img/depo/d2.webp" alt="Mensaje de alumna sobre sus ingresos" width="600" height="739" loading="lazy"></figure>
+            <figure><img src="img/comunidade/c4.webp" alt="Alumna muestra en la comunidad la foto de su festival" width="600" height="1298" loading="lazy"></figure>
+            <figure><img src="img/comunidade/c5.webp" alt="Alumna cuenta que sus tortas fueron las primeras en agotarse en una feria" width="600" height="580" loading="lazy"></figure>
+            <figure><img src="img/depo/d3.webp" alt="Mensaje de alumna respondiendo una historia de Sú" width="600" height="761" loading="lazy"></figure>
+          </div>
+          <div class="carrossel__nav">
+            <button type="button" class="carrossel__seta" data-dir="-1" aria-label="Anterior">‹</button>
+            <button type="button" class="carrossel__seta" data-dir="1" aria-label="Siguiente">›</button>
+          </div>
+        </div>
+
+        <div class="cta-bloco">
+          <a class="botao" data-checkout="depois_casos" href="#oferta" rel="noopener"><svg class="coracao"><use href="#coracao"/></svg> Quiero hacer mi festival</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. MANIFESTO (frase da VSL, 09:03) -->
+    <section class="faixa faixa--choco manifesto-faixa">
+      <div class="miolo miolo--estreito centro">
+        <p class="manifesto" data-manifesto>Tú no necesitas más técnica, más seguidores ni más dinero para invertir. <em>Necesitas un festival.</em></p>
+        <p class="manifesto__assina">Sú Limiro</p>
+      </div>
+    </section>
+
+    <!-- 4. PROBLEMA → CAUSA → NÃO É CULPA SUA → SOLUÇÃO (a pesquisa da VSL, 04:14) -->
+    <section id="problema" class="faixa faixa--blush papel">
+      <div class="miolo miolo--estreito">
+        <div class="centro">
+          <p class="sobre">Te suena familiar…</p>
+          <h2 class="titulo">Tu problema nunca fue <em>la receta</em></h2>
+          <p class="lead">Les pregunté a un grupo de reposteras qué les impide vender más. La técnica quedó en último lugar.</p>
+        </div>
+        <div class="pesquisa" data-barras>
+          <div class="barra barra--1" data-valor="32"><span class="barra__rot">El miedo a no vender: producir y que todo se quede sin vender</span><span class="barra__trilho"><span class="barra__fill"></span></span><b>32%</b></div>
+          <div class="barra" data-valor="18"><span class="barra__rot">Tiempo y organización</span><span class="barra__trilho"><span class="barra__fill"></span></span><b>18%</b></div>
+          <div class="barra" data-valor="16"><span class="barra__rot">Falta de clientes y no saber cómo divulgar</span><span class="barra__trilho"><span class="barra__fill"></span></span><b>16%</b></div>
+          <div class="barra" data-valor="12"><span class="barra__rot">No saber por dónde empezar</span><span class="barra__trilho"><span class="barra__fill"></span></span><b>12%</b></div>
+          <div class="barra barra--tecnica" data-valor="7"><span class="barra__rot">La técnica</span><span class="barra__trilho"><span class="barra__fill"></span></span><b>7%</b></div>
+        </div>
+        <div class="virada-txt">
+          <p>Produces sin saber si vas a lograr vender, y eso te paraliza. Y no es culpa tuya: tal vez tuviste una profesora que te enseñó a hacer un pastel increíble, pero nunca te dijo qué hacer con esa torta después de sacarla del horno.</p>
+          <p class="virada-txt__frase">No te faltaba talento. <em>Te faltaba un modelo.</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. O QUE É + MÉTODO 4·1·0 -->
+    <section id="metodo" class="faixa faixa--choco">
+      <div class="miolo">
+        <div class="metodo-intro">
+          <div class="metodo-intro__foto"><img src="img/mesa-festival.webp" alt="Mesa de festival con cinco tortas de sabores distintos" width="900" height="1125" loading="lazy"></div>
+          <div>
+            <p class="sobre">El modelo</p>
+            <h2 class="titulo">Ese modelo tiene nombre: <em>el Festival de Tortas</em></h2>
+            <p class="lead">Un festival no es un evento gigante ni una feria que necesita una gran inversión. Es una fecha especial en la que eliges algunos sabores, los anuncias por tiempo limitado y concentras tus ventas en un solo fin de semana.</p>
+            <p class="dado"><b>98%</b> de las reposteras nunca hizo un festival. Ni siquiera saben qué es.</p>
+          </div>
+        </div>
+
+        <div class="centro" style="margin-top:40px">
+          <p class="sobre">El método</p>
+          <h2 class="titulo">Método <em>4·1·0</em></h2>
+        </div>
+        <div class="metodo">
+          <div class="metodo__item"><span class="metodo__num">4</span><div><h3>sabores</h3><p>Cuatro sabores te permiten producir rápido, sin perderte y sin que te sobre torta en la nevera.</p></div></div>
+          <div class="metodo__item"><span class="metodo__num">1</span><div><h3>fecha</h3><p>Un fin de semana o un día, con inicio y fin. No es un “vendo cuando puedo”: crea urgencia real en quien te compra y organiza tu semana de producción.</p></div></div>
+          <div class="metodo__item"><span class="metodo__num">0</span><div><h3>riesgo innecesario</h3><p>Aprendes a producir y divulgar de forma estratégica. Y si ya tienes contactos, puedes cubrir tu inversión con reservas antes del festival.</p></div></div>
+        </div>
+        <div class="duas-formas">
+          <div><strong>Antes del festival: reservas por WhatsApp</strong>Empiezas a producir con parte o incluso toda la inversión ya cubierta.</div>
+          <div><strong>Durante el festival: la gente que pasa</strong>Así vendí en el parque, a personas que nunca me habían visto.</div>
+        </div>
+        <p class="lead centro" style="margin-top:22px">Y quien prueba una porción el sábado guarda tu contacto y te pide una torta entera la semana siguiente. El festival te consigue clientes para las próximas semanas.</p>
+      </div>
+    </section>
+
+    <!-- 6. COMPARATIVO ✕/✓ (como a Line Art) -->
+    <section class="faixa faixa--creme papel">
+      <div class="miolo miolo--estreito">
+        <div class="centro">
+          <p class="sobre">La diferencia</p>
+          <h2 class="titulo">Vender como siempre <em>× hacer un festival</em></h2>
+        </div>
+        <div class="comparativo">
+          <div class="comparativo__cab"><span>Como siempre</span><span>Con el Método 4·1·0</span></div>
+          <div class="comparativo__linha"><p class="nao">Vendes cuando puedes, sin fecha</p><p class="sim">Una fecha con inicio y fin, que crea urgencia en quien te compra</p></div>
+          <div class="comparativo__linha"><p class="nao">Produces y después sales a buscar quién te compre</p><p class="sim">Recibes reservas por WhatsApp antes de prender el horno</p></div>
+          <div class="comparativo__linha"><p class="nao">Aceptas cualquier sabor que te pidan</p><p class="sim">4 sabores: produces rápido y no te sobra torta en la nevera</p></div>
+          <div class="comparativo__linha"><p class="nao">Cobras lo que te piden</p><p class="sim">Sabes tu costo exacto y tu margen con la App de Costos</p></div>
+          <div class="comparativo__linha"><p class="nao">Dependes de la familia y de la vecina que te regatea</p><p class="sim">Llegas a personas nuevas que pasan por tu festival</p></div>
+          <div class="comparativo__linha"><p class="nao">Cada venta termina en esa torta</p><p class="sim">Quien prueba el sábado te pide una torta entera el lunes</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FUNCIONA AUNQUE… + PARA QUEM É -->
+    <section class="faixa faixa--blush papel faixa--sem-lado">
+      <div class="miolo">
+        <div class="centro miolo--estreito">
+          <p class="sobre">Antes de decidir</p>
+          <h2 class="titulo">Funciona <em>aunque…</em></h2>
+        </div>
+      </div>
+      <div class="faixa-rolante">
+        <div class="faixa-rolante__trilho">
+          <span>nunca hayas vendido de forma constante</span><span>estés empezando en un lugar nuevo</span><span>hoy solo seas “la chica que hace tortas”</span><span>no tengas seguidores en redes</span><span>todavía no tengas clientes</span><span>nunca hayas vendido una torta en tu vida</span>
+          <span aria-hidden="true">nunca hayas vendido de forma constante</span><span aria-hidden="true">estés empezando en un lugar nuevo</span><span aria-hidden="true">hoy solo seas “la chica que hace tortas”</span><span aria-hidden="true">no tengas seguidores en redes</span><span aria-hidden="true">todavía no tengas clientes</span><span aria-hidden="true">nunca hayas vendido una torta en tu vida</span>
+        </div>
+      </div>
+      <div class="miolo lado">
+        <div class="paraquem">
+          <div class="paraquem__col">
+            <h3>Es para ti si…</h3>
+            <ul>
+              <li><svg class="coracao"><use href="#coracao"/></svg>Ya vendes tortas por gusto y quieres volverlo constante</li>
+              <li><svg class="coracao"><use href="#coracao"/></svg>Nunca vendiste, pero sabes hacer una torta rica</li>
+              <li><svg class="coracao"><use href="#coracao"/></svg>Te mudaste a un lugar nuevo y te da miedo que nadie te compre</li>
+              <li><svg class="coracao"><use href="#coracao"/></svg>Te da miedo producir y que no se venda</li>
+              <li><svg class="coracao"><use href="#coracao"/></svg>Cobras lo que te piden y no lo que realmente vale tu trabajo</li>
+            </ul>
+          </div>
+          <div class="paraquem__col paraquem__col--nao">
+            <h3>No es para ti si…</h3>
+            <ul>
+              <li><span aria-hidden="true">✕</span>Solo buscas una receta más para guardar en el cuaderno, sin nunca producir con una fecha y una estrategia de ventas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. MÓDULOS COM O RESULTADO DE CADA UM (como as etapas da Luana) -->
+    <section id="contenido" class="faixa faixa--creme papel">
+      <div class="miolo miolo--estreito">
+        <div class="centro">
+          <p class="sobre">Lo que vas a tener adentro</p>
+          <h2 class="titulo">4 módulos · <em>41 clases</em></h2>
+          <p class="lead">Un curso grabado con todo lo que necesitas para elegir, divulgar, vender, producir y entregar tu primer festival sin improvisar.</p>
+        </div>
+        <ol class="etapas">
+          <li class="etapa">
+            <span class="etapa__num">1</span>
+            <div class="etapa__corpo">
+              <p class="etapa__rot">Módulo 1</p>
+              <h3>El Modelo del Festival</h3>
+              <p>Entiendes el Método 4·1·0 de principio a fin: cómo elegir tu fecha y tus 4 sabores.</p>
+              <p class="etapa__resultado"><b>Al terminar:</b> tu festival definido, con fecha y 4 sabores.</p>
+            </div>
+          </li>
+          <li class="etapa etapa--destaque">
+            <span class="etapa__num">2</span>
+            <div class="etapa__corpo">
+              <p class="etapa__rot">Módulo 2</p>
+              <h3>Las 7 Recetas Estrella</h3>
+              <p>Selva Negra, Matilda, 3 Amores, Beso de Ángel, Sorpresa de Uva, Piña con Coco y Suspiro con Fresas. Cada una completa, con su recetario en PDF, lista para producir a nivel de venta y no solo de casa.</p>
+              <div class="etapa__miniaturas">
+                <img src="img/recetas/selva-negra.webp" alt="" width="580" height="750" loading="lazy">
+                <img src="img/recetas/matilda.webp" alt="" width="600" height="505" loading="lazy">
+                <img src="img/recetas/tres-amores.webp" alt="" width="480" height="543" loading="lazy">
+                <img src="img/recetas/beso-angel.webp" alt="" width="600" height="710" loading="lazy">
+              </div>
+              <p class="etapa__resultado"><b>Al terminar:</b> 7 recetas a nivel de venta, y las 4 de tu festival elegidas.</p>
+            </div>
+          </li>
+          <li class="etapa">
+            <span class="etapa__num">3</span>
+            <div class="etapa__corpo">
+              <p class="etapa__rot">Módulo 3</p>
+              <h3>La Venta del Festival</h3>
+              <p>Cómo divulgar tu festival para llegar a personas nuevas, cómo usar WhatsApp si ya tienes contactos y cómo recibir reservas antes de producir.</p>
+              <p class="etapa__resultado"><b>Al terminar:</b> tu divulgación lista y, si tienes contactos, reservas entrando antes de prender el horno.</p>
+            </div>
+          </li>
+          <li class="etapa">
+            <span class="etapa__num">4</span>
+            <div class="etapa__corpo">
+              <p class="etapa__rot">Módulo 4</p>
+              <h3>Producción, Entrega y Resultado</h3>
+              <p>Cómo organizar tu fin de semana para que nada se te escape.</p>
+              <p class="etapa__resultado"><b>Al terminar:</b> tu fin de semana organizado, de la producción a la entrega.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="cta-bloco">
+          <a class="botao" data-checkout="depois_modulos" href="#oferta" rel="noopener"><svg class="coracao"><use href="#coracao"/></svg> Quiero montar mi primer festival</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. CARDÁPIO (as fotos das tortas da página original) -->
+    <section id="menu" class="faixa faixa--blush papel">
+      <div class="miolo">
+        <div class="centro miolo--estreito">
+          <p class="sobre">El menú del festival</p>
+          <h2 class="titulo">Las 7 recetas estrella <em>(+1 de regalo)</em></h2>
+          <p class="lead">Tortas cremosas, llamativas y pensadas para venderse por foto. Aprendes las 7 y eliges las 4 que mejor funcionen en tu primer festival.</p>
+        </div>
+        <div class="carrossel carrossel--vitrine" data-carrossel>
+          <div class="carrossel__trilho">
+            <figure class="receita"><img src="img/recetas/selva-negra.webp" alt="Torta Selva Negra" width="580" height="750" loading="lazy"><figcaption>Selva Negra</figcaption></figure>
+            <figure class="receita"><img src="img/recetas/matilda.webp" alt="Torta Matilda" width="600" height="505" loading="lazy"><figcaption>Matilda</figcaption></figure>
+            <figure class="receita"><img src="img/recetas/tres-amores.webp" alt="Torta 3 Amores" width="480" height="543" loading="lazy"><figcaption>3 Amores</figcaption></figure>
+            <figure class="receita"><img src="img/recetas/beso-angel.webp" alt="Torta Beso de Ángel" width="600" height="710" loading="lazy"><figcaption>Beso de Ángel</figcaption></figure>
+            <figure class="receita"><img src="img/recetas/sorpresa-uva.webp" alt="Torta Sorpresa de Uva" width="600" height="782" loading="lazy"><figcaption>Sorpresa de Uva</figcaption></figure>
+            <figure class="receita"><img src="img/recetas/pina-coco.webp" alt="Torta Piña con Coco" width="600" height="605" loading="lazy"><figcaption>Piña con Coco</figcaption></figure>
+            <figure class="receita"><img src="img/recetas/suspiro-fresas.webp" alt="Torta Suspiro con Fresas" width="600" height="783" loading="lazy"><figcaption>Suspiro con Fresas</figcaption></figure>
+            <figure class="receita receita--bonus"><img src="img/recetas/tiramisu.webp" alt="Torta Tiramisú" width="500" height="820" loading="lazy"><figcaption>Tiramisú <small>de regalo</small></figcaption></figure>
+          </div>
+          <div class="carrossel__nav">
+            <button type="button" class="carrossel__seta" data-dir="-1" aria-label="Anterior">‹</button>
+            <button type="button" class="carrossel__seta" data-dir="1" aria-label="Siguiente">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. BÔNUS -->
+    <section id="bonos" class="faixa faixa--creme papel">
+      <div class="miolo">
+        <div class="centro miolo--estreito">
+          <p class="sobre">Y eso no es todo</p>
+          <h2 class="titulo">Como sé en qué punto te vas a trabar, <em>te llevas 4 bonos</em></h2>
+        </div>
+        <div class="bonos">
+          <article class="bono">
+            <div class="bono__topo"><span class="bono__num">Bono 1</span></div>
+            <h3>Receta secreta: Tiramisú</h3>
+            <p>La receta que guardaba solo para mis clases privadas. El toque elegante que sube el ticket de tu festival.</p>
+          </article>
+          <article class="bono bono--largo">
+            <div class="bono__topo"><span class="bono__num">Bono 2</span><span class="bono__tag">el favorito</span></div>
+            <h3>App de Costos automática</h3>
+            <p>Ya viene cargada con los ingredientes de las 7 recetas. Pones lo que pagas por cada ingrediente, en tu moneda, y te devuelve el costo exacto, el precio sugerido por porción, tu margen real de ganancia y la lista de compras armada sola. Se acabó el “cobro lo que me piden, no lo que vale”.</p>
+            <div class="telas">
+              <figure><img src="img/app/insumos.webp" alt="App de Costos: lista de insumos ya cargada" width="500" height="1082" loading="lazy"><figcaption>Insumos ya cargados</figcaption></figure>
+              <figure><img src="img/app/recetas.webp" alt="App de Costos: recetas base ya cargadas" width="500" height="1082" loading="lazy"><figcaption>Recetas del festival</figcaption></figure>
+              <figure><img src="img/app/dashboard.webp" alt="App de Costos: resumen con costo, precio recomendado y ganancia" width="500" height="1082" loading="lazy"><figcaption>Costo, precio y ganancia</figcaption></figure>
+            </div>
+          </article>
+          <article class="bono">
+            <div class="bono__topo"><span class="bono__num">Bono 3</span><span class="bono__tag">recién salido del horno</span></div>
+            <h3>Planner interactivo de 10 días</h3>
+            <p>Un checklist día por día en cuenta regresiva, con 65 tareas de producción y divulgación en el orden correcto, control de reservas, control de pagos y un resumen automático de tu festival.</p>
+          </article>
+          <article class="bono">
+            <div class="bono__topo"><span class="bono__num">Bono 4</span></div>
+            <h3>Recetarios imprimibles</h3>
+            <p>Cada receta lista para imprimir y tener en tu cocina el día de la producción.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. TABELA DE VALOR → PREÇO (como a Luana: soma tudo, depois revela o investimento) -->
+    <section id="oferta" class="faixa faixa--choco">
+      <div class="oferta">
+        <div class="oferta__foto"><img src="img/mesa-festival-larga.webp" alt="Tortas de un festival sobre la mesa" width="900" height="562" loading="lazy"></div>
+        <div class="oferta__corpo">
+          <p class="sobre">Todo lo que recibes hoy</p>
+          <h2 class="oferta__titulo">Súper Festival de Tortas</h2>
+          <ul class="valor">
+            <li><span>El curso grabado con el <strong>Método 4·1·0</strong>: 4 módulos y 41 clases</span><i>✓</i></li>
+            <li><span><strong>Las 7 recetas estrella</strong>, cada una con su recetario en PDF</span><i>✓</i></li>
+            <li><span><strong>Bono 1:</strong> receta secreta de Tiramisú</span><i>✓</i></li>
+            <li><span><strong>Bono 2:</strong> App de Costos automática</span><i>✓</i></li>
+            <li><span><strong>Bono 3:</strong> Planner interactivo de 10 días</span><i>✓</i></li>
+            <li><span><strong>Bono 4:</strong> recetarios imprimibles</span><i>✓</i></li>
+            <li><span>Acceso inmediato durante <strong>1 año completo</strong></span><i>✓</i></li>
+          </ul>
+          <p class="valor__total">Si lo compraras por separado, en mentorías de venta y cursos de recetas de nivel profesional, fácilmente pasaría de los <s>US$ <span data-ancora>97</span></s>.</p>
+          <p class="valor__virada">Pero tu inversión hoy no es esa:</p>
+          <p class="preco__valor"><small>US$</small><span data-preco>47</span></p>
+          <p class="preco__nota">Un solo pago · sin mensualidades</p>
+          <a class="botao" data-checkout="caixa_oferta" href="#oferta" rel="noopener">
+            <svg class="coracao"><use href="#coracao"/></svg> Quiero entrar al festival
+          </a>
+          <p class="micro">🔒 Compra segura por Hotmart · Garantía incondicional de 7 días</p>
+          <div class="pagos" aria-label="Formas de pago">
+            <span>Tarjeta</span><span>Nequi</span><span>Yape</span><span>PSE</span><span>Baloto</span><span>PagoEfectivo</span><span>OXXO</span><span>Mercado Pago</span>
+          </div>
+          <p class="micro">No necesitas tarjeta de crédito internacional</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. PAYBACK (como a Luana: em quanto tempo a inversão volta, com os números reais das alunas) -->
+    <section id="recupera" class="faixa faixa--creme papel">
+      <div class="miolo miolo--estreito">
+        <div class="centro">
+          <p class="sobre">¿Y si no recupero lo que invierto?</p>
+          <h2 class="titulo">Tu primer festival <em>paga el curso</em></h2>
+          <p class="lead">“Con vender algunas porciones en tu primer festival ya logras recuperar lo que inviertes.”</p>
+        </div>
+        <div class="payback">
+          <div class="payback__num"><b><span data-porcoes>11</span> porciones</b><span>a US$ 4,50, el precio promedio de las alumnas, pagan tus US$ <span data-preco>47</span></span></div>
+          <div class="payback__num"><b><span data-payback-n>7</span> de 8</b><span>alumnas ganaron más que el valor del curso en su primer festival</span></div>
+        </div>
+        <div class="lucros" data-lucros>
+          <p class="lucros__tit">Ganancia de cada alumna en su primer festival</p>
+          <div class="lucro" data-ganancia="169"><span class="lucro__nome">Carolina</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 169</b></div>
+          <div class="lucro" data-ganancia="160"><span class="lucro__nome">Glorimar</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 160</b></div>
+          <div class="lucro" data-ganancia="140"><span class="lucro__nome">Suhaly</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 140</b></div>
+          <div class="lucro" data-ganancia="93"><span class="lucro__nome">Nancy</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 93</b></div>
+          <div class="lucro" data-ganancia="80"><span class="lucro__nome">Alis</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 80</b></div>
+          <div class="lucro" data-ganancia="58"><span class="lucro__nome">Lucelly</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 58</b></div>
+          <div class="lucro" data-ganancia="54"><span class="lucro__nome">Carmenza</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 54</b></div>
+          <div class="lucro" data-ganancia="34"><span class="lucro__nome">Yury</span><span class="lucro__trilho"><span class="lucro__fill"></span></span><b>US$ 34</b></div>
+          <p class="lucros__legenda"><span class="lucros__marca" aria-hidden="true"></span> Valor del curso: US$ <span data-preco>47</span></p>
+        </div>
+        <figure class="payback__print"><img src="img/alunas/glorimar-transferencias.webp" alt="Transferencias recibidas por Glorimar el día de su festival" width="600" height="1301" loading="lazy"><figcaption class="foto-leg">Transferencias que recibió Glorimar el día de su festival (nombres ocultos)</figcaption></figure>
+        <p class="aviso">Ganancia = lo facturado menos lo que invirtieron en ingredientes. Son los resultados de las alumnas que enviaron su formulario final; tu resultado depende de tu aplicación, tu ciudad y tus precios.</p>
+        <div class="cta-bloco">
+          <a class="botao" data-checkout="depois_payback" href="#oferta" rel="noopener"><svg class="coracao"><use href="#coracao"/></svg> Quiero entrar al festival</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. GARANTIA -->
+    <section class="faixa faixa--blush papel">
+      <div class="miolo miolo--estreito garantia">
+        <div class="selo7"><svg class="coracao" style="margin:0 auto"><use href="#coracao"/></svg><b>7</b><span>días</span></div>
+        <div>
+          <h2 class="titulo">Pruébalo en tu cocina <em>7 días sin riesgo</em></h2>
+          <p class="lead">Entra, mira las clases, abre la App de Costos. Si en 7 días sientes que no es para ti, te devuelvo cada centavo, sin preguntas. Es una garantía incondicional: el riesgo es todo mío.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. QUEM É A SÚ (depois do preço, como a Luana e o Roas) -->
+    <section id="su" class="faixa faixa--creme papel">
+      <div class="miolo su">
+        <div class="su__foto"><img src="img/su.webp" alt="Sú Limiro con una torta del festival" width="800" height="1000" loading="lazy"></div>
+        <div class="su__txt">
+          <p class="sobre">Quién te enseña</p>
+          <h2 class="titulo">Soy <em>Sú Limiro</em></h2>
+          <p class="lead">Mi historia no empezó con repostería: empezó con angustia. Era extranjera, lejos de mi familia, con tres hijos pequeños y mi esposo meses sin recibir sueldo. No había plata ni para la medicina de uno de mis hijos.</p>
+          <p class="lead">Miré mi cocina como una posibilidad de salir adelante y empecé a vender tortas. Con los años enseñando repostería entendí que esa no era solo mi historia: era la de muchas mujeres que quieren ayudar en casa y no saben por dónde empezar.</p>
+          <div class="numeros">
+            <div><b>+7.500</b><span>alumnas</span></div>
+            <div><b>+50</b><span>países</span></div>
+            <div><b>598</b><span>alumnas del Festival, en 31 países</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. FAQ -->
+    <section class="faixa faixa--blush papel">
+      <div class="miolo miolo--estreito">
+        <div class="centro">
+          <p class="sobre">¿Tienes dudas?</p>
+          <h2 class="titulo">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq">
+          <details><summary>¿Necesito experiencia?</summary><p>No. El Método 4·1·0 funciona incluso si nunca vendiste una torta en tu vida.</p></details>
+          <details><summary>¿Necesito seguidores en redes?</summary><p>Tampoco. El festival no depende de tener una audiencia en redes sociales.</p></details>
+          <details><summary>¿Y si todavía no tengo clientes ni contactos?</summary><p>También puedes empezar. En el curso aprendes a divulgar tu festival para llegar a personas nuevas. Yo lo comprobé en un parque donde nadie me conocía.</p></details>
+          <details><summary>¿Es en vivo o grabado?</summary><p>Es un curso grabado. Entras hoy mismo y lo ves a tu ritmo.</p></details>
+          <details><summary>¿Necesito tarjeta de crédito internacional?</summary><p>No. Puedes pagar con tarjeta o con el método de tu país: Nequi, Yape, PSE, Baloto, PagoEfectivo, OXXO o Mercado Pago. La compra es segura, por Hotmart.</p></details>
+          <details><summary>¿Por cuánto tiempo tengo acceso?</summary><p>Durante 1 año completo, ilimitado.</p></details>
+          <details><summary>¿Cuándo empiezo?</summary><p>Ahora mismo: el acceso es inmediato.</p></details>
+          <details><summary>¿La App de Costos sirve en mi moneda?</summary><p>Sí. Se personaliza con tu propia moneda, sin importar tu país.</p></details>
+          <details><summary>¿Necesito equipos o ingredientes especiales?</summary><p>No. Son recetas para hacer en casa, y la app te arma la lista de compras.</p></details>
+          <details><summary>¿Y si no me sale bien?</summary><p>Tienes 7 días de garantía incondicional para probar sin ningún riesgo.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16. OS DOIS CAMINHOS -->
+    <section class="faixa faixa--creme papel">
+      <div class="miolo miolo--estreito centro">
+        <p class="sobre">Tu próximo festival</p>
+        <h2 class="titulo">Tienes <em>dos caminos</em> al cerrar esta página</h2>
+        <div class="caminhos">
+          <div class="caminho"><b>Seguir como estás</b>Produciendo solo cuando alguien te pide, cobrando lo que te dicen y no lo que vale, con miedo cada vez que piensas en vender más.</div>
+          <div class="caminho caminho--2"><b>Entrar ahora</b>Elegir tu fecha y tus 4 sabores, y tener tu primer festival organizado en los próximos 10 días, con el planner en tus manos.</div>
+        </div>
+        <p class="lead" style="margin-top:22px">En los primeros 30 días, 598 mujeres en 31 países ya empezaron a construir su festival. No tienes que ser “la chica que hace tortas” para siempre: puedes ser la repostera que vende todos los días y cobra lo que realmente merece.</p>
+        <div style="margin-top:22px">
+          <a class="botao" data-checkout="fechamento" href="#oferta" rel="noopener">
+            <svg class="coracao"><use href="#coracao"/></svg> Quiero entrar al festival
+          </a>
+          <p class="micro">US$ <span data-preco>47</span> en un solo pago · Acceso inmediato · Garantía de 7 días</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p class="frase">Transforma tu pasión en ingresos ¡y destácate en el mundo de las tortas!</p>
+    <small>Súper Festival de Tortas · por Sú Limiro · © 2026</small>
+    <small>Los resultados mostrados son de alumnas reales y dependen de la aplicación de cada una; no son una promesa de ganancia. Este sitio no forma parte de Facebook ni de Meta Platforms, Inc.</small>
+  </footer>
+
+  <div class="barra-fixa">
+    <a class="botao" data-checkout="barra_fixa" href="#oferta" rel="noopener"><svg class="coracao"><use href="#coracao"/></svg> Entrar al festival · US$ <span data-preco>47</span></a>
+  </div>
+
+  <script src="js/pagina.js"></script>
+</body>
+</html>
